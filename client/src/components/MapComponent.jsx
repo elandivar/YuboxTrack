@@ -74,7 +74,7 @@ const MapComponent = ({ planData }) => {
     useEffect(() => {
         const fetchTracks = async () => {
             try {
-                const res = await axios.get('http://localhost:3005/tracks');
+                const res = await axios.get('/tracks');
                 setTracks(res.data);
             } catch (error) {
                 console.error("Error fetching tracks:", error);
@@ -164,7 +164,7 @@ const MapComponent = ({ planData }) => {
 
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:3005/maps', mapData, {
+            await axios.post('/maps', mapData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             alert('Map saved successfully!');

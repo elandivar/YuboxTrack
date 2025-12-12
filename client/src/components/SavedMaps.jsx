@@ -10,7 +10,7 @@ const SavedMaps = ({ onLoadMap }) => {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.get('http://localhost:3005/maps', {
+            const res = await axios.get('/maps', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setMaps(res.data);

@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (username, password) => {
         try {
-            const res = await axios.post('http://localhost:3005/auth/login', { username, password });
+            const res = await axios.post('/auth/login', { username, password });
             const { token, username: user } = res.data;
             localStorage.setItem('token', token);
             localStorage.setItem('username', user);
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
     const register = async (username, password) => {
         try {
-            await axios.post('http://localhost:3005/auth/register', { username, password });
+            await axios.post('/auth/register', { username, password });
             return { success: true };
         } catch (error) {
             return { success: false, message: error.response?.data || 'Registration failed' };
