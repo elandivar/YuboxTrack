@@ -12,8 +12,38 @@ L.Icon.Default.mergeOptions({
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
+// Custom Icons for Resizing
+const createResizeIcon = (rotation) => {
+    return L.divIcon({
+        className: 'custom-resize-icon',
+        html: `
+        <div style="
+            background-color: white;
+            border: 2px solid #2563eb;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transform: rotate(${rotation}deg);
+        ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+        </div>
+        `,
+        iconSize: [32, 32],
+        iconAnchor: [16, 16],
+    });
+};
+
+const topLeftIcon = createResizeIcon(0);
+const bottomRightIcon = createResizeIcon(180);
+
 // Draggable Marker for Manual Calibration
-function DraggableMarker({ position, onDragEnd }) {
+function DraggableMarker({ position, onDragEnd, icon }) {
     const markerRef = useRef(null);
     const eventHandlers = useMemo(
         () => ({
@@ -33,6 +63,7 @@ function DraggableMarker({ position, onDragEnd }) {
             eventHandlers={eventHandlers}
             position={position}
             ref={markerRef}
+            icon={icon}
         />
     );
 }
@@ -206,8 +237,8 @@ const MapComponent = ({ planData }) => {
                             opacity={opacity}
                         />
                         {/* Calibration Markers - Always allow adjustment */}
-                        <DraggableMarker position={imageBounds[0]} onDragEnd={handleTopLeftDrag} />
-                        <DraggableMarker position={imageBounds[1]} onDragEnd={handleBottomRightDrag} />
+                        <DraggableMarker position={imageBounds[0]} onDragEnd={handleTopLeftDrag} icon={topLeftIcon} />
+                        <DraggableMarker position={imageBounds[1]} onDragEnd={handleBottomRightDrag} icon={bottomRightIcon} />
                     </>
                 )}
 
