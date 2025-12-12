@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+:root {
+  --background-color: #f3f4f6;
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+.blend-multiply {
+  mix-blend-mode: multiply;
+}
