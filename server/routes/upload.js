@@ -39,7 +39,7 @@ router.post('/', upload.single('plan'), async (req, res) => {
     try {
         console.log('Processing file:', filePath);
         let responseData = {
-            path: `http://localhost:3005/uploads/${req.file.filename.replace('.pdf', '.png')}`,
+            path: `/uploads/${req.file.filename.replace('.pdf', '.png')}`,
             mode: mode
         };
 
@@ -50,7 +50,7 @@ router.post('/', upload.single('plan'), async (req, res) => {
         const imagePath = filePath.replace('.pdf', '.png');
         fs.writeFileSync(imagePath, outputImages[0]);
         console.log('Image saved to:', imagePath);
-        responseData.imagePath = `http://localhost:3005/uploads/${path.basename(imagePath)}`;
+        responseData.imagePath = `/uploads/${path.basename(imagePath)}`;
 
         if (mode === 'auto') {
             console.log('Auto mode: Extracting text...');
