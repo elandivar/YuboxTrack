@@ -3,7 +3,8 @@ node_modules
 .DS_Store
 dist
 build
-uploads/*
+server/uploads/*
 !uploads/.gitkeep
 server/database.sqlite
 server/drizzle
+package-lock.json
